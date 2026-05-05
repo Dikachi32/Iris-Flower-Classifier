@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction Result{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero animate-in">
+        <div class="hero-badge">🌺 Classification Complete</div>
+        <h1>Your Flower <em>Identified</em></h1>
+        <p>Our model has analyzed the measurements and determined the species with confidence.</p>
+        <div class="hero-divider"></div>
+    </section>
+
+    <!-- Result Card -->
+    <div class="content-wrapper">
+        <div class="card result-card animate-in delay-1">
+
+            <span class="result-badge">🌸 Predicted Species</span>
+
+            <h2 class="result-species-name">{{ species.name }}</h2>
+
+            <div class="result-image-wrapper">
+                <img src="{{ url_for('static', filename='species_images/' + species.image) }}"
+                     alt="{{ species.name }}"
+                     onerror="this.src='https://images.unsplash.com/photo-1490750967868-88aa9f00c4f8?w=600&h=400&fit=crop'">
+            </div>
+
+            <p class="result-description">{{ species.description }}</p>
+
+            <div class="result-origin">
+                <!-- Kept the location pin icon — it's meaningful here (native origin) -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                🌍 Native to {{ species.origin }}
+            </div>
+
+            <div class="result-actions">
+                <!-- "Predict Another" button — flower emoji replacing SVG arrow -->
+                <a href="/" class="btn btn-primary">
+                    🌷 Predict Another
+                </a>
+                <!-- "Learn More" — kept external link icon since it signals opening Wikipedia -->
+                <a href="https://en.wikipedia.org/wiki/{{ species.name }}" target="_blank" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    Learn More
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Species Comparison Card -->
+        <div class="card animate-in delay-2" style="margin-top: 1.5rem;">
+
+            <!-- Fixed: font changed from 'Inter' to 'DM Sans' -->
+            <h3 style="font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 1.5rem; text-align: center;">
+                🌿 About the Iris Dataset
+            </h3>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+
+                <div style="text-align: center; padding: 1rem; background: var(--bg-warm); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                    <!-- Added flower emoji as visual accent -->
+                    <div style="font-size: 20px; margin-bottom: 0.4rem;">🌱</div>
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Iris setosa</div>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Small, compact flowers with narrow sepals</p>
+                </div>
+
+                <div style="text-align: center; padding: 1rem; background: var(--bg-warm); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                    <div style="font-size: 20px; margin-bottom: 0.4rem;">🌸</div>
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Iris versicolor</div>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Medium-sized with showy white patches</p>
+                </div>
+
+                <div style="text-align: center; padding: 1rem; background: var(--bg-warm); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                    <div style="font-size: 20px; margin-bottom: 0.4rem;">🌺</div>
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Iris virginica</div>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Largest and most showy violet blooms</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

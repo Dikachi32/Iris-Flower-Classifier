@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Iris Species Predictor{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero animate-in">
+        <div class="hero-badge">🌿 Machine Learning Powered</div>
+        <h1>Iris Flower <em>Classifier</em></h1>
+        <p>Enter the precise botanical measurements below to identify your Iris species using our trained Decision Tree model.</p>
+        <div class="hero-divider"></div>
+    </section>
+
+    <!-- Form Card -->
+    <div class="content-wrapper">
+        <div class="card animate-in delay-1">
+
+            {% if error %}
+            <div class="error-message">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="/predict" method="post">
+                <div class="form-grid">
+
+                    <!-- Sepal Length -->
+                    <div class="form-group">
+                        <label for="sepal_length">🌸 Sepal Length <span>(longest dimension)</span></label>
+                        <div class="input-wrapper">
+                            <input type="number" id="sepal_length" name="sepal_length" step="0.1" min="0" placeholder="0.0" required>
+                            <!-- Replaced arrow icon with a botanical leaf/ruler icon -->
+                            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <path d="M12 2C9 5 6 9 6 13a6 6 0 0012 0c0-4-3-8-6-11z"/>
+                            </svg>
+                            <span class="unit-badge">cm</span>
+                        </div>
+                    </div>
+
+                    <!-- Sepal Width -->
+                    <div class="form-group">
+                        <label for="sepal_width">🌸 Sepal Width <span>(widest dimension)</span></label>
+                        <div class="input-wrapper">
+                            <input type="number" id="sepal_width" name="sepal_width" step="0.1" min="0" placeholder="0.0" required>
+                            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <path d="M12 2C9 5 6 9 6 13a6 6 0 0012 0c0-4-3-8-6-11z"/>
+                            </svg>
+                            <span class="unit-badge">cm</span>
+                        </div>
+                    </div>
+
+                    <!-- Petal Length -->
+                    <div class="form-group">
+                        <label for="petal_length">🌷 Petal Length <span>(longest dimension)</span></label>
+                        <div class="input-wrapper">
+                            <input type="number" id="petal_length" name="petal_length" step="0.1" min="0" placeholder="0.0" required>
+                            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <path d="M12 2C9 5 6 9 6 13a6 6 0 0012 0c0-4-3-8-6-11z"/>
+                            </svg>
+                            <span class="unit-badge">cm</span>
+                        </div>
+                    </div>
+
+                    <!-- Petal Width -->
+                    <div class="form-group">
+                        <label for="petal_width">🌷 Petal Width <span>(widest dimension)</span></label>
+                        <div class="input-wrapper">
+                            <input type="number" id="petal_width" name="petal_width" step="0.1" min="0" placeholder="0.0" required>
+                            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <path d="M12 2C9 5 6 9 6 13a6 6 0 0012 0c0-4-3-8-6-11z"/>
+                            </svg>
+                            <span class="unit-badge">cm</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Predict button with flower emoji instead of generic checkmark icon -->
+                <button type="submit" class="btn btn-primary btn-full">
+                    🌺 Predict Species
+                </button>
+            </form>
+
+            <!-- Info Section -->
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center;">
+
+                    <div>
+                        <div style="width: 48px; height: 48px; background: var(--accent-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 22px;">
+                            🌿
+                        </div>
+                        <h4 style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem;">Decision Tree</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Trained ML model</p>
+                    </div>
+
+                    <div>
+                        <div style="width: 48px; height: 48px; background: var(--accent-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 22px;">
+                            🌸
+                        </div>
+                        <h4 style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem;">3 Species</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Setosa, Versicolor, Virginica</p>
+                    </div>
+
+                    <div>
+                        <div style="width: 48px; height: 48px; background: var(--accent-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 22px;">
+                            🌺
+                        </div>
+                        <h4 style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem;">100% Accuracy</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Reliable predictions</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
